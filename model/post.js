@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema({
   },
   tags: {
     type: [String],
-    required: [true, "tags 屬性不得為空"],
+    required: [true, "content 屬性不得為空"]
   },
   image: {
     type: String,
