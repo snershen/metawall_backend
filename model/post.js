@@ -3,18 +3,16 @@ const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "貼文姓名未填寫"],
+    required: [true, "name 屬性不得為空"],
   },
   content: {
     type: String,
-    required: [true, "貼文內容未填寫"],
+    required: [true, "content 屬性不得為空"],
   },
-  tags: [
-    {
-      type: String,
-      required: [true, "貼文標籤未填寫"],
-    },
-  ],
+  tags: {
+    type: [String],
+    required: [true, "tags 屬性不得為空"],
+  },
   image: {
     type: String,
     default: "",
@@ -24,7 +22,6 @@ const postSchema = new mongoose.Schema({
     default: Date.now(),
     select: false,
   },
-
   likes: {
     type: Number,
     default: 0,
@@ -33,7 +30,7 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-});
+},  { versionKey: false });
 
 const Post = mongoose.model("posts", postSchema);
 
