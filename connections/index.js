@@ -1,11 +1,14 @@
+const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const DB = "mongodb://localhost:27017/metawall";
+
+dotenv.config({ path: "./config.env" });
+const DB = process.env.DATABASE.replace("<password>", process.env.DATABASE_PASSWORD);
 
 (async () => {
-  try{
-    await mongoose.connect(DB)
-    console.log("資料庫連接成功")
-  }catch(err){
-    console.log(err)
+  try {
+    await mongoose.connect(DB);
+    console.log("資料庫連接成功");
+  } catch (err) {
+    console.log(err);
   }
 })();
