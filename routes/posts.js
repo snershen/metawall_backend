@@ -1,11 +1,7 @@
 var express = require("express");
 var router = express.Router();
-const PostModel = require("../model/post");
-const successHandler = require("../service/successHandler");
+const PostControllers = require("../controllers/post")
 
-router.get("/", async function (req, res) {
-  const allPosts = await PostModel.find();
-  successHandler(res, { data: allPosts });
-});
+router.get("/", PostControllers.getPosts);
 
 module.exports = router;
