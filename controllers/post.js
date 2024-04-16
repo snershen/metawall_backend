@@ -1,12 +1,26 @@
 const PostModel = require("../model/post");
 const successHandler = require("../service/successHandler");
 const errorHandler = require("../service/errorHandler");
+const User = require('../model/user');
 
 const posts = {
   // /posts
   async getPosts(req, res) {
-    const allPosts = await PostModel.find();
-    successHandler(res, { data: allPosts });
+    const { timeSort, q } = req.query;
+    const timeSortStr = timeSort === "asc" ? "createdAt" : "-createdAt";
+    const qStr = q !== undefined ? { content: new RegExp(q) } : {};
+    const postsResult = await PostModel.find(qStr)
+      .populate({
+        // 指定 posts 資料表裡的 user 欄位
+        path: "user",
+        // 指定取出的欄位
+        select: "name photo",
+      })
+      .sort(timeSortStr);
+    successHandler(res, { total: postsResult.length, data: postsResult });
+    if (postsResult.length === 0) {
+      successHandler(200, { message: "查無相關貼文" });
+    }
   },
   async deleteAllPosts(req, res) {
     await PostModel.deleteMany({});
@@ -33,14 +47,14 @@ const posts = {
   },
   async addPost(req, res) {
     try {
-      if (req.body.content.trim()) {
-        const { name, content, tags, image, createdAt, likes, comments } = req.body;
+      if (req.body.content !== undefined && req.body.content.trim()) {
+        const { user, content, tags, image, likes, comments } = req.body;
         const newPost = {
-          name,
-          content,
+          user,
+          content: content.trim(),
           tags,
           image,
-          createdAt,
+          createdAt: Date.now(),
           likes,
           comments,
         };
@@ -50,17 +64,18 @@ const posts = {
       }
       errorHandler(res, "content 屬性未填寫");
     } catch (err) {
+      console.log(err);
       errorHandler(res, err.errors);
     }
   },
   async editPost(req, res) {
     try {
-      if (req.body.content.trim()) {
+      if (req.body.content !== undefined && req.body.content.trim()) {
         const id = req.params.id;
         const { name, content, tags, image, createdAt, likes, comments } = req.body;
         const newPost = {
           name,
-          content,
+          content: content.trim(),
           tags,
           image,
           createdAt,

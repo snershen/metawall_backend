@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "name 屬性不得為空"],
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "user",
+    required: [true, "user 屬性不得為空"],
   },
   content: {
     type: String,
@@ -11,7 +12,7 @@ const postSchema = new mongoose.Schema({
   },
   tags: {
     type: [String],
-    required: [true, "content 屬性不得為空"]
+    required: [true, "tags 屬性不得為空"]
   },
   image: {
     type: String,

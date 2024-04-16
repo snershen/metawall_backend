@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/posts', postsRouter);
 app.use('/post', postRouter);
+// app.use('/users', usersRouter);
 
 app.use(function(req, res){
   res.status(404).send('查無此路由')
