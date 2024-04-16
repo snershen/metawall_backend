@@ -19,54 +19,61 @@ const posts = {
       const post = await PostModel.findById(id);
       successHandler(res, { data: post });
     } catch (err) {
-      errorHandler(res, '找不到此貼文')
+      errorHandler(res, "找不到此貼文");
     }
   },
-  async deletePost(req, res){
+  async deletePost(req, res) {
     try {
       const id = req.params.id;
       await PostModel.findByIdAndDelete(id);
-      successHandler(res, { message: '已刪除貼文' });
+      successHandler(res, { message: "已刪除貼文" });
     } catch (err) {
-      errorHandler(res, '找不到此貼文')
+      errorHandler(res, "找不到此貼文");
     }
   },
-  async addPost(req, res){
+  async addPost(req, res) {
     try {
-      
-      const { name, content, tags,  image, createdAt, likes, comments } = req.body
-      const newPost = {
-        name,
-        content,
-        tags,
-        image,
-        createdAt,
-        likes,
-        comments
+      if (req.body.content.trim()) {
+        const { name, content, tags, image, createdAt, likes, comments } = req.body;
+        const newPost = {
+          name,
+          content,
+          tags,
+          image,
+          createdAt,
+          likes,
+          comments,
+        };
+        await PostModel.create(newPost);
+        successHandler(res, { message: "已建立貼文" });
+        return;
       }
-      await PostModel.create(newPost);
-      successHandler(res, { message: '已建立貼文' });
+      errorHandler(res, "content 屬性未填寫");
     } catch (err) {
-      errorHandler(res, err.errors)
+      errorHandler(res, err.errors);
     }
   },
-  async editPost(req, res){
+  async editPost(req, res) {
     try {
-      const id = req.params.id;
-      const { name, content, tags,  image, createdAt, likes, comments } = req.body
-      const newPost = {
-        name,
-        content,
-        tags,
-        image,
-        createdAt,
-        likes,
-        comments
+      if (req.body.content.trim()) {
+        const id = req.params.id;
+        const { name, content, tags, image, createdAt, likes, comments } = req.body;
+        const newPost = {
+          name,
+          content,
+          tags,
+          image,
+          createdAt,
+          likes,
+          comments,
+        };
+        await PostModel.findByIdAndUpdate(id, newPost);
+        successHandler(res, { message: "已更新貼文" });
+        return;
       }
-      await PostModel.findByIdAndUpdate(id, newPost);
-      successHandler(res, { message: '已更新貼文' });
+      errorHandler(res, "找不到此貼文");
     } catch (err) {
-      errorHandler(res, '找不到此貼文')
+      errorHandler(res, "找不到此貼文");
     }
   },
 };
