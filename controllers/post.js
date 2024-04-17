@@ -64,7 +64,6 @@ const posts = {
       }
       errorHandler(res, "content 屬性未填寫");
     } catch (err) {
-      console.log(err);
       errorHandler(res, err.errors);
     }
   },
