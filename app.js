@@ -22,12 +22,18 @@ app.use('/post', postRouter);
 // app.use('/users', usersRouter);
 
 app.use(function(req, res){
-  res.status(404).send('查無此路由')
+  res.status(404).send({
+    success: false,
+    message: "路由錯誤"
+  })
 })
 
+// 統一管理錯誤
 app.use(function(err, req, res, next){
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  err.statusCode = err.statusCode || 500;
+  res.status(statusCode).send({
+    "error": err
+  })
 })
 
 module.exports = app;
