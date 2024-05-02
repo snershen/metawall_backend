@@ -1,16 +1,16 @@
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const cors = require("cors");
 // const axios = require("axios")
 
-var postsRouter = require("./routes/posts");
-var postRouter = require("./routes/post");
+const postsRouter = require("./routes/posts");
+const postRouter = require("./routes/post");
 const resErrorDev = require("./service/resErrorDev")
 const resErrorProd = require("./service/resErrorProd")
 
-var app = express();
+const app = express();
 
 process.on("uncaughtException", (err) => {
   console.log(err);
