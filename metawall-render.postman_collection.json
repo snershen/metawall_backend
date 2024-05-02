@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "49936264-9398-4ea8-aa03-691e27aecc31",
+		"name": "metawall-render",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22670715"
+	},
+	"item": [
+		{
+			"name": "https://metawall-backend-pny6.onrender.com/posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/posts",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://metawall-backend-pny6.onrender.com/post/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/post/:id",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"post",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://metawall-backend-pny6.onrender.com/post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":\"661fbae161d981f86962e60c\",\n    \"content\":\"今天天氣真好\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/post",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://metawall-backend-pny6.onrender.com/post/:id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\":\"更新貼文\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/post/:id",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"post",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://metawall-backend-pny6.onrender.com/posts",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/posts",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://metawall-backend-pny6.onrender.com/post/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/post/:id",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"post",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
