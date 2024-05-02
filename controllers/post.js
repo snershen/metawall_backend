@@ -6,7 +6,7 @@ const User = require('../model/user');
 
 const posts = {
   // /posts
-  async getPosts(req, res) {
+  async getPosts(req, res, next) {
     const { timeSort, q } = req.query;
     const timeSortStr = timeSort === "asc" ? "createdAt" : "-createdAt";
     const qStr = q !== undefined ? { content: new RegExp(q) } : {};
@@ -23,31 +23,22 @@ const posts = {
       successHandler(200, { message: "查無相關貼文" });
     }
   },
-  async deleteAllPosts(req, res) {
+  async deleteAllPosts(req, res, next) {
     await PostModel.deleteMany({});
     successHandler(res, { message: "已刪除所有貼文" });
   },
   // /post
-  async getPost(req, res) {
-    try {
+  async getPost(req, res, next) {
       const id = req.params.id;
       const post = await PostModel.findById(id);
       successHandler(res, { data: post });
-    } catch (err) {
-      errorHandler(res, "找不到此貼文");
-    }
   },
-  async deletePost(req, res) {
-    try {
+  async deletePost(req, res, next) {
       const id = req.params.id;
       await PostModel.findByIdAndDelete(id);
       successHandler(res, { message: "已刪除貼文" });
-    } catch (err) {
-      errorHandler(res, "找不到此貼文");
-    }
   },
-  async addPost(req, res) {
-    try {
+  async addPost(req, res, next) {
       if (req.body.content !== undefined && req.body.content.trim()) {
         const { user, content, tags, image, likes, comments } = req.body;
         const newPost = {
@@ -64,12 +55,8 @@ const posts = {
         return;
       }
       return next(appError(400, "content 屬性不能為空值"))
-    } catch (err) {
-      errorHandler(res, err.errors);
-    }
   },
-  async editPost(req, res) {
-    try {
+  async editPost(req, res, next) {
       if (req.body.content !== undefined && req.body.content.trim()) {
         const id = req.params.id;
         const { name, content, tags, image, createdAt, likes, comments } = req.body;
@@ -87,9 +74,6 @@ const posts = {
         return;
       }
       return next(appError(400, "找不到此貼文"))
-    } catch (err) {
-      errorHandler(res, "找不到此貼文");
-    }
   },
 };
 

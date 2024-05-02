@@ -1,5 +1,5 @@
 const appError = (httpStatus, errorMessage) => {
-  const error = newError(errorMessage);
+  const error = new Error(errorMessage);
   error.statusCode = httpStatus;
   error.message = errorMessage;
   // 標示為預期內的錯誤
@@ -7,4 +7,4 @@ const appError = (httpStatus, errorMessage) => {
   return error;
 };
 
-modules.exports = appError;
+module.exports = appError;

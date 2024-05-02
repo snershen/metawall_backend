@@ -38,7 +38,7 @@ app.use(function (req, res) {
 // 統一管理錯誤
 app.use(function (err, req, res, next) {
   err.statusCode = err.statusCode || 500;
-  res.status(statusCode).send({
+  res.status(err.statusCode).send({
     error: err,
   });
 });
