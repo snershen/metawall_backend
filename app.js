@@ -7,6 +7,8 @@ const cors = require("cors");
 
 var postsRouter = require("./routes/posts");
 var postRouter = require("./routes/post");
+const resErrorDev = require("./service/resErrorDev")
+const resErrorProd = require("./service/resErrorProd")
 
 var app = express();
 
@@ -38,9 +40,17 @@ app.use(function (req, res) {
 // 統一管理錯誤
 app.use(function (err, req, res, next) {
   err.statusCode = err.statusCode || 500;
-  res.status(err.statusCode).send({
-    error: err,
-  });
+  console.log(err)
+  if(process.env.NODE_ENV === 'dev'){
+    return resErrorDev(err, res);
+  }
+  // 額外處理套件回傳的錯誤資訊，此處是 mongoose
+  if(err.name === 'ValidationError'){
+    err.message = "資料欄位填寫錯誤，請重新填寫"
+    err.isOperational = true;
+    return resErrorProd(err, res)
+  }
+  return resErrorProd(err, res)
 });
 
 process.on("unhandledRejection", (err, promise) => {
