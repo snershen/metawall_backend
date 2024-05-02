@@ -1,6 +1,7 @@
 const PostModel = require("../model/post");
 const successHandler = require("../service/successHandler");
-const errorHandler = require("../service/errorHandler");
+const appError = require("../service/appError");
+// const errorHandler = require("../service/errorHandler");
 const User = require('../model/user');
 
 const posts = {
@@ -62,7 +63,7 @@ const posts = {
         successHandler(res, { message: "已建立貼文" });
         return;
       }
-      errorHandler(res, "content 屬性未填寫");
+      return next(appError(400, "content 屬性不能為空值"))
     } catch (err) {
       errorHandler(res, err.errors);
     }
@@ -85,7 +86,7 @@ const posts = {
         successHandler(res, { message: "已更新貼文" });
         return;
       }
-      errorHandler(res, "找不到此貼文");
+      return next(appError(400, "找不到此貼文"))
     } catch (err) {
       errorHandler(res, "找不到此貼文");
     }
