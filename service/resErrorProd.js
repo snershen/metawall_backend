@@ -1,5 +1,4 @@
 const resErrorProd = (err, res) => {
-  console.log(err);
   // 預期錯誤
   if (err.isOperational) {
     res.status(err.statusCode).send({

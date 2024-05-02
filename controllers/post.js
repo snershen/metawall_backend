@@ -1,8 +1,9 @@
+const mongoose = require("mongoose");
 const PostModel = require("../model/post");
 const successHandler = require("../service/successHandler");
 const appError = require("../service/appError");
 // const errorHandler = require("../service/errorHandler");
-const User = require('../model/user');
+const User = require("../model/user");
 
 const posts = {
   // /posts
@@ -29,51 +30,65 @@ const posts = {
   },
   // /post
   async getPost(req, res, next) {
-      const id = req.params.id;
-      const post = await PostModel.findById(id);
-      successHandler(res, { data: post });
+    const id = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(appError(400, "您輸入的是無效 id"));
+    }
+    const post = await PostModel.findById(id);
+    successHandler(res, { data: post });
   },
   async deletePost(req, res, next) {
-      const id = req.params.id;
-      await PostModel.findByIdAndDelete(id);
-      successHandler(res, { message: "已刪除貼文" });
+    const id = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(appError(400, "您輸入的是無效 id"));
+    }
+    const deletedPost = await PostModel.findByIdAndDelete(id);
+    if (!deletedPost) {
+      return next(appError(400, "找不到此貼文"));
+    }
+    successHandler(res, { message: "已刪除貼文" });
   },
   async addPost(req, res, next) {
-      if (req.body.content !== undefined && req.body.content.trim()) {
-        const { user, content, tags, image, likes, comments } = req.body;
-        const newPost = {
-          user,
-          content: content.trim(),
-          tags,
-          image,
-          createdAt: Date.now(),
-          likes,
-          comments,
-        };
-        await PostModel.create(newPost);
-        successHandler(res, { message: "已建立貼文" });
-        return;
-      }
-      return next(appError(400, "content 屬性不能為空值"))
+    if (req.body.content !== undefined && req.body.content.trim()) {
+      const { user, content, tags, image, likes, comments } = req.body;
+      const newPost = {
+        user,
+        content: content.trim(),
+        tags,
+        image,
+        createdAt: Date.now(),
+        likes,
+        comments,
+      };
+      await PostModel.create(newPost);
+      successHandler(res, { message: "已建立貼文" });
+      return;
+    }
+    return next(appError(400, "content 屬性不能為空值"));
   },
   async editPost(req, res, next) {
-      if (req.body.content !== undefined && req.body.content.trim()) {
-        const id = req.params.id;
-        const { name, content, tags, image, createdAt, likes, comments } = req.body;
-        const newPost = {
-          name,
-          content: content.trim(),
-          tags,
-          image,
-          createdAt,
-          likes,
-          comments,
-        };
-        await PostModel.findByIdAndUpdate(id, newPost);
-        successHandler(res, { message: "已更新貼文" });
-        return;
+    if (req.body.content !== undefined && req.body.content.trim()) {
+      const id = req.params.id;
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return next(appError(400, "您輸入的是無效 id"));
       }
-      return next(appError(400, "找不到此貼文"))
+      const { name, content, tags, image, createdAt, likes, comments } = req.body;
+      const newPost = {
+        name,
+        content: content.trim(),
+        tags,
+        image,
+        createdAt,
+        likes,
+        comments,
+      };
+
+      const editPost = await PostModel.findByIdAndUpdate(id, newPost);
+      if (!editPost) {
+        return next(appError(400, "找不到此貼文"));
+      }
+      successHandler(res, { message: "已更新貼文" });
+    }
   },
 };
 
