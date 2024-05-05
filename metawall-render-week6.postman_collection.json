@@ -1,0 +1,224 @@
+{
+	"info": {
+		"_postman_id": "b54ee057-59e4-4b17-8940-2f64c3c4a1d5",
+		"name": "metawall-render-week6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22670715"
+	},
+	"item": [
+		{
+			"name": "貼文 - 取得全部",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Mzc4YjBlMDFiYzc1MmFhYjA0ZDkxZiIsImlhdCI6MTcxNDkxODc3MSwiZXhwIjoxNzE1NTIzNTcxfQ.Bdm104bAxIJdJGU6mKjaAZJVeaSyTrLS4zXVaPrHQY4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/posts",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "貼文 - 新增貼文",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":\"661e88bff359c77bb6cd5a43\",\n    \"content\":\"今天天氣真好\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/post",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "使用者 - 註冊",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jessi\",\n    \"email\": \"4321ddd@gmail.com\",\n    \"password\": \"122434ab\",\n    \"confirmPassword\": \"122434ab\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/users/sign_up",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"users",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "使用者 - 登入",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"4321ddd@gmail.com\",\n    \"password\": \"qqqq23455\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/users/sign_in",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"users",
+						"sign_in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "使用者 - 取得個人資料",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Mzc4YjBlMDFiYzc1MmFhYjA0ZDkxZiIsImlhdCI6MTcxNDkxODc3MSwiZXhwIjoxNzE1NTIzNTcxfQ.Bdm104bAxIJdJGU6mKjaAZJVeaSyTrLS4zXVaPrHQY4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/users/profile",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "使用者 - 重設密碼",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Mzc4YjBlMDFiYzc1MmFhYjA0ZDkxZiIsImlhdCI6MTcxNDkxODc3MSwiZXhwIjoxNzE1NTIzNTcxfQ.Bdm104bAxIJdJGU6mKjaAZJVeaSyTrLS4zXVaPrHQY4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\":\"qqqq23455\",\n    \"confirmPassword\": \"qqqq23455\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/users/updatePassword",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"users",
+						"updatePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "使用者 - 更新個人資料",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Mzc4YjBlMDFiYzc1MmFhYjA0ZDkxZiIsImlhdCI6MTcxNDkxODc3MSwiZXhwIjoxNzE1NTIzNTcxfQ.Bdm104bAxIJdJGU6mKjaAZJVeaSyTrLS4zXVaPrHQY4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Wang\",\n    \"sex\": \"Male\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://metawall-backend-pny6.onrender.com/users/updateProfile",
+					"protocol": "https",
+					"host": [
+						"metawall-backend-pny6",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"users",
+						"updateProfile"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
