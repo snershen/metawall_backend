@@ -35,7 +35,7 @@ const user = {
     if (!validator.isLength(name, { minLength: 2 })) {
       return next(appError("400", "暱稱至少 2 個字元以上", next));
     }
-    const existingUser = await UserModel.findOne({ email: email });
+    const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
       return next(appError("400", "此帳號已經註冊過"));
     }
@@ -48,6 +48,18 @@ const user = {
       name,
     });
     generateSendJWT(newUser, 201, res);
+  },
+  async signIn(req, res, next) {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return next(appError("400", "欄位未填寫完成", next));
+    }
+    const user = await UserModel.findOne({ email }).select("+password");
+    const auth = await bcrypt.compare(password, user.password);
+    if (!auth) {
+      return next(appError(400, "密碼不正確", next));
+    }
+    generateSendJWT(user, 200, res);
   },
 };
 
