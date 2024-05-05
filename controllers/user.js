@@ -4,21 +4,7 @@ const appError = require("../service/appError");
 const successHandler = require("../service/successHandler");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
-const jwt = require("jsonwebtoken");
-
-const generateSendJWT = (user, statusCode, res) => {
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_DAY,
-  });
-  user.password = undefined;
-  res.status(statusCode).send({
-    status: "success",
-    user: {
-      token,
-      name: user.name,
-    },
-  });
-};
+const generateSendJWT = require("../service/generateSendJWT")
 
 const user = {
   async signUp(req, res, next) {
@@ -95,7 +81,7 @@ const user = {
       },
       { new: true }
     );
-    generateSendJWT(user, 200, res);
+    successHandler(res, { data: user });
   },
 };
 

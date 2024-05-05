@@ -7,10 +7,16 @@
 	},
 	"item": [
 		{
-			"name": "http://127.0.0.1:3000/posts",
+			"name": "貼文 - 取得全部",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Mzc4YjBlMDFiYzc1MmFhYjA0ZDkxZiIsImlhdCI6MTcxNDkxODc3MSwiZXhwIjoxNzE1NTIzNTcxfQ.Bdm104bAxIJdJGU6mKjaAZJVeaSyTrLS4zXVaPrHQY4",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://127.0.0.1:3000/posts",
 					"protocol": "http",
@@ -29,36 +35,7 @@
 			"response": []
 		},
 		{
-			"name": "http://127.0.0.1:3000/post/:id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:3000/post/:id",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "3000",
-					"path": [
-						"post",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": ""
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://127.0.0.1:3000/post",
+			"name": "貼文 - 新增貼文",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -89,13 +66,13 @@
 			"response": []
 		},
 		{
-			"name": "http://127.0.0.1:3000/post/:id",
+			"name": "使用者 - 註冊",
 			"request": {
-				"method": "PATCH",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"content\":\"更新貼文\"\n}",
+					"raw": "{\n    \"name\": \"Jessi\",\n    \"email\": \"4321ddd@gmail.com\",\n    \"password\": \"122434ab\",\n    \"confirmPassword\": \"122434ab\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -103,7 +80,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:3000/post/:id",
+					"raw": "http://127.0.0.1:3000/users/sign_up",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -113,26 +90,29 @@
 					],
 					"port": "3000",
 					"path": [
-						"post",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": ""
-						}
+						"users",
+						"sign_up"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://127.0.0.1:3000/posts",
+			"name": "使用者 - 登入",
 			"request": {
-				"method": "DELETE",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"4321ddd@gmail.com\",\n    \"password\": \"123 \"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://127.0.0.1:3000/posts",
+					"raw": "http://127.0.0.1:3000/users/sign_in",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -142,19 +122,26 @@
 					],
 					"port": "3000",
 					"path": [
-						"posts"
+						"users",
+						"sign_in"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://127.0.0.1:3000/post/:id",
+			"name": "使用者 - 取得個人資料",
 			"request": {
-				"method": "DELETE",
-				"header": [],
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Mzc4YjBlMDFiYzc1MmFhYjA0ZDkxZiIsImlhdCI6MTcxNDkxODc3MSwiZXhwIjoxNzE1NTIzNTcxfQ.Bdm104bAxIJdJGU6mKjaAZJVeaSyTrLS4zXVaPrHQY4",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://127.0.0.1:3000/post/:id",
+					"raw": "http://127.0.0.1:3000/users/profile",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -164,14 +151,84 @@
 					],
 					"port": "3000",
 					"path": [
-						"post",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": ""
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "使用者 - 重設密碼",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Mzc4YjBlMDFiYzc1MmFhYjA0ZDkxZiIsImlhdCI6MTcxNDkxODc3MSwiZXhwIjoxNzE1NTIzNTcxfQ.Bdm104bAxIJdJGU6mKjaAZJVeaSyTrLS4zXVaPrHQY4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\":\"123 \",\n    \"confirmPassword\": \"123 \"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/users/updatePassword",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"updatePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "使用者 - 更新個人資料",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Mzc4YjBlMDFiYzc1MmFhYjA0ZDkxZiIsImlhdCI6MTcxNDkxODc3MSwiZXhwIjoxNzE1NTIzNTcxfQ.Bdm104bAxIJdJGU6mKjaAZJVeaSyTrLS4zXVaPrHQY4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Wang\",\n    \"sex\": \"Male\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/users/updateProfile",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"updateProfile"
 					]
 				}
 			},
