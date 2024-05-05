@@ -2,8 +2,8 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
 dotenv.config({ path: "./config.env" });
-// const DB = process.env.DATABASE.replace("<password>", process.env.DATABASE_PASSWORD);
-const DB = "mongodb://localhost:27017/metawall";
+const DB = process.env.DATABASE.replace("<password>", process.env.DATABASE_PASSWORD);
+// const DB = "mongodb://localhost:27017/metawall";
 
 (async () => {
   try {
