@@ -16,6 +16,7 @@ const isAuth = asyncErrorHandler(async (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
       if (err) {
         reject(err);
+        return next(appError(401, "驗證未通過", next));
       } else {
         resolve(payload);
       }
