@@ -7,5 +7,6 @@ const isAuth = require("../service/isAuth")
 router.post("/sign_up", asyncErrorHandler(UserControllers.signUp));
 router.post("/sign_in", asyncErrorHandler(UserControllers.signIn));
 router.get("/profile", isAuth, UserControllers.getProfile );
+router.post("/updatePassword", isAuth, UserControllers.updatePassword );
 
 module.exports = router;

@@ -66,6 +66,20 @@ const user = {
     console.log(req.user);
     successHandler(res, { data: { user: req.user } });
   },
+  async updatePassword(req, res, next) {
+    const { password, confirmPassword } = req.body;
+    if( !password || !confirmPassword){
+      return next(appError(400, "欄位未填寫完成", next));
+    }
+    if (password !== confirmPassword) {
+      return next(appError(400, "密碼不一致", next));
+    }
+    const newPassword = await bcrypt.hash(password, 12);
+    const user = await UserModel.findByIdAndUpdate(req.user.id, {
+      password: newPassword,
+    });
+    generateSendJWT(user, 200, res);
+  },
 };
 
 module.exports = user;
