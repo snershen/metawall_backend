@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/posts", postsRouter);
 app.use("/post", postRouter);
-app.use("/user", userRouter);
+app.use("/users", userRouter);
 // app.use('/users', usersRouter);
 
 app.use(function (req, res) {

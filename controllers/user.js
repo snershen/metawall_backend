@@ -63,12 +63,11 @@ const user = {
     generateSendJWT(user, 200, res);
   },
   async getProfile(req, res, next) {
-    console.log(req.user);
     successHandler(res, { data: { user: req.user } });
   },
   async updatePassword(req, res, next) {
     const { password, confirmPassword } = req.body;
-    if( !password || !confirmPassword){
+    if (!password || !confirmPassword) {
       return next(appError(400, "欄位未填寫完成", next));
     }
     if (password !== confirmPassword) {
@@ -78,6 +77,24 @@ const user = {
     const user = await UserModel.findByIdAndUpdate(req.user.id, {
       password: newPassword,
     });
+    generateSendJWT(user, 200, res);
+  },
+  async updateProfile(req, res, next) {
+    const { name, sex } = req.body;
+    if (!name || !name.trim()) {
+      return next(appError(400, "暱稱為必填", next));
+    }
+    if (!validator.isLength(name, { minLength: 2 })) {
+      return next(appError("400", "暱稱至少 2 個字元以上", next));
+    }
+    const user = await UserModel.findByIdAndUpdate(
+      req.user.id,
+      {
+        name,
+        sex,
+      },
+      { new: true }
+    );
     generateSendJWT(user, 200, res);
   },
 };
