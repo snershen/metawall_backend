@@ -6,6 +6,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "請輸入姓名"],
     },
+    sex:{
+      type: String,
+      enum: ["Male", "Female", "Intersex"],
+    },
+    photo: String,
     email: {
       type: String,
       required: [true, "請輸入 Email"],
@@ -18,7 +23,12 @@ const userSchema = new mongoose.Schema(
         message: "Email 格式不正確",
       },
     },
-    photo: String,
+    password:{
+      type: String,
+      required: [true, '請輸入密碼'],
+      minLength: 8,
+      select: false
+    }
   },
   { versionKey: false }
 );
