@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const UserModel = require("../model/user");
 const appError = require("../service/appError");
+const successHandler = require("../service/successHandler");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
@@ -60,6 +61,10 @@ const user = {
       return next(appError(400, "密碼不正確", next));
     }
     generateSendJWT(user, 200, res);
+  },
+  async getProfile(req, res, next) {
+    console.log(req.user);
+    successHandler(res, { data: { user: req.user } });
   },
 };
 
