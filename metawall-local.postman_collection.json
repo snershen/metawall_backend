@@ -104,7 +104,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"4321ddd@gmail.com\",\n    \"password\": \"123 \"\n}",
+					"raw": "{\n    \"email\": \"4321ddd@gmail.com\",\n    \"password\": \"qqqq23455\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -171,7 +171,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"password\":\"123 \",\n    \"confirmPassword\": \"123 \"\n}",
+					"raw": "{\n    \"password\":\"qqqq23455\",\n    \"confirmPassword\": \"qqqq23455\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

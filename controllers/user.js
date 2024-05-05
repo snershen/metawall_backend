@@ -4,7 +4,7 @@ const appError = require("../service/appError");
 const successHandler = require("../service/successHandler");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
-const generateSendJWT = require("../service/generateSendJWT")
+const generateSendJWT = require("../service/generateSendJWT");
 
 const user = {
   async signUp(req, res, next) {
@@ -16,8 +16,9 @@ const user = {
     if (!validator.isEmail(email)) {
       return next(appError("400", "Email 格式不正確", next));
     }
-    if (!validator.isLength(password, { minLength: 8 })) {
-      return next(appError("400", "密碼長度須大於 8 碼", next));
+    const passwordRule = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+    if (!passwordRule.test(password) || !validator.isLength(password, { minLength: 8 })) {
+      return next(appError(400, "密碼需至少 8 碼以上，並英數混合", next));
     }
     if (!validator.isLength(name, { minLength: 2 })) {
       return next(appError("400", "暱稱至少 2 個字元以上", next));
@@ -42,6 +43,9 @@ const user = {
       return next(appError("400", "欄位未填寫完成", next));
     }
     const user = await UserModel.findOne({ email }).select("+password");
+    if (!user) {
+      return next(appError(400, "此帳號尚未註冊", next));
+    }
     const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
       return next(appError(400, "密碼不正確", next));
@@ -58,6 +62,10 @@ const user = {
     }
     if (password !== confirmPassword) {
       return next(appError(400, "密碼不一致", next));
+    }
+    const passwordRule = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+    if (!passwordRule.test(password) || !validator.isLength(password, { minLength: 8 })) {
+      return next(appError(400, "密碼需至少 8 碼以上，並英數混合", next));
     }
     const newPassword = await bcrypt.hash(password, 12);
     const user = await UserModel.findByIdAndUpdate(req.user.id, {
