@@ -8,6 +8,7 @@ const cors = require("cors");
 const postsRouter = require("./routes/posts");
 const postRouter = require("./routes/post");
 const userRouter = require("./routes/user");
+const uploadRouter = require("./routes/upload");
 const resErrorDev = require("./service/resErrorDev");
 const resErrorProd = require("./service/resErrorProd");
 
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/posts", postsRouter);
 app.use("/post", postRouter);
 app.use("/users", userRouter);
+app.use("/upload", uploadRouter);
 // app.use('/users', usersRouter);
 
 app.use(function (req, res) {
@@ -51,6 +53,13 @@ app.use(function (err, req, res, next) {
     err.isOperational = true;
     return resErrorProd(err, res);
   }
+  // 處理圖片過大的錯誤
+  if (err.name === "MulterError") {
+    err.message = "圖片不得超過 2MB";
+    err.isOperational = true;
+    return resErrorProd(err, res);
+  }
+  console.log(err.name)
   return resErrorProd(err, res);
 });
 
